@@ -52,7 +52,7 @@ brain = TD3(5,3,1.9)
 action2rotation = [0,5,-5]
 last_reward = 0
 scores = []
-im = CoreImage(r"C:\Users\gunak\OneDrive\Desktop\ERV1\ERAV1-Session-25-main\images\MASK1.png")
+im = CoreImage(".\images\MASK1.png")
 
 env_name = "AntBulletEnv-v0" # Name of a environment (set it to any Continous environment you want)
 seed = 0 # Random seed number
@@ -104,10 +104,10 @@ def init():
     global goal_y
     global first_update
     sand = np.zeros((longueur,largeur))
-    img = PILImage.open(r"C:\Users\gunak\OneDrive\Desktop\ERV1\ERAV1-Session-25-main\images\mask.png").convert('L')
+    img = PILImage.open(".\images\mask.png").convert('L')
     sand = np.asarray(img)/255
-    goal_x = 1025
-    goal_y = 487
+    goal_x = 89
+    goal_y = 170
     first_update = False
     global swap
     swap = 0
@@ -162,7 +162,12 @@ class Ball2(Widget):
     pass
 class Ball3(Widget):
     pass
-
+class Goal1(Widget):
+    pass
+class Goal2(Widget):
+    pass
+class Goal3(Widget):
+    pass
 
 class Game(Widget):
     
@@ -255,6 +260,9 @@ class Game(Widget):
         self.ball1.pos = self.car.sensor1
         self.ball2.pos = self.car.sensor2
         self.ball3.pos = self.car.sensor3
+        self.goal1.pos = (89,170)
+        self.goal2.pos = (1105,217)
+        self.goal3.pos = (1200,92)
 
         if sand[int(self.car.x),int(self.car.y)] > 0:
             self.car.velocity = Vector(0.5, 0).rotate(self.car.angle)
@@ -285,12 +293,16 @@ class Game(Widget):
 
         if distance < 25:
             if swap == 1:
-                goal_x = 1025
-                goal_y = 487
+                print(self.goal3.pos)
+                goal_x, goal_y = self.goal3.pos
+                swap = 2
+            elif swap == 2:
+                print(self.goal1.pos)
+                goal_x, goal_y = self.goal1.pos
                 swap = 0
             else:
-                goal_x = 9
-                goal_y = 85
+                print(self.goal2.pos)
+                goal_x, goal_y = self.goal2.pos
                 swap = 1
         last_distance = distance
 
@@ -310,7 +322,7 @@ class MyPaintWidget(Widget):
             length = 0
             sand[int(touch.x),int(touch.y)] = 1
             img = PILImage.fromarray(sand.astype("uint8")*255)
-            img.save(r"C:\Users\gunak\OneDrive\Desktop\ERV1\ERAV1-Session-25-main\images\sand.jpg")
+            img.save(".\images\sand.jpg")
 
     def on_touch_move(self, touch):
         global length, n_points, last_x, last_y
