@@ -179,3 +179,7 @@ def evaluate_policy(policy, eval_episodes=10):
 ### Training Logs
 
 ![image](https://github.com/GunaKoppula/ERAV1-Session-25/assets/61241928/ad2f614f-87df-4533-a191-8bb5facbd575)
+
+### Outputs
+
+#### [**youtube video link for car game**](https://youtu.be/8frrydFtsOU)
